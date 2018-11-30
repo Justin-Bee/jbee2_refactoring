@@ -34,9 +34,14 @@ public class DefaultEventNotifier implements EventNotificationListener {
 	/**
 	 * @see main.java.memoranda.EventNotificationListener#eventsChanged()
 	 */
-	public void eventsChanged() {
+	
+	////TASK 2-1 SMELL WITHIN A CLASS
+	//this is a code smell because the method doesnt do anything
+    //removed the method completely because it has no function
+	//public void eventsChanged()
+	//public void eventsChanged() {
 		//
-	}
+	//}
 
 	
 }

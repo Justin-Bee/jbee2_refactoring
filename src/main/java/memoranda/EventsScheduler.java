@@ -97,8 +97,8 @@ public class EventsScheduler {
     }
 
     private static void notifyChanged() {
-        for (int i = 0; i < _listeners.size(); i++)
-            ((EventNotificationListener)_listeners.get(i)).eventsChanged();
+      //  for (int i = 0; i < _listeners.size(); i++)
+          //  ((EventNotificationListener)_listeners.get(i)).eventsChanged();
     }
 
     private static Date getMidnight() {

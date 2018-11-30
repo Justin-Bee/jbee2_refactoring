@@ -106,14 +106,18 @@ public class ITaskListImpl implements TaskList {
         return filterActiveTasks(allTasks,date);
     }
 
-    public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, String description, String parentTaskId) {
+    //TASK 2-2 SMELL BETWEEN CLASSES
+    //this is a code smell because the method has many parameters
+    //removed description and effort from the method
+    
+    public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, String parentTaskId) {
         Element el = new Element("task");
         el.addAttribute(new Attribute("startDate", startDate.toString()));
         el.addAttribute(new Attribute("endDate", endDate != null? endDate.toString():""));
 		String id = Util.generateId();
         el.addAttribute(new Attribute("id", id));
         el.addAttribute(new Attribute("progress", "0"));
-        el.addAttribute(new Attribute("effort", String.valueOf(effort)));
+        el.addAttribute(new Attribute("effort", null));
         el.addAttribute(new Attribute("priority", String.valueOf(priority)));
                 
         Element txt = new Element("text");
@@ -121,7 +125,7 @@ public class ITaskListImpl implements TaskList {
         el.appendChild(txt);
 
         Element desc = new Element("description");
-        desc.appendChild(description);
+       
         el.appendChild(desc);
 
         if (parentTaskId == null) {

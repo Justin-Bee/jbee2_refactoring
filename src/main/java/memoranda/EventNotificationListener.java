@@ -16,6 +16,6 @@ public interface EventNotificationListener {
 
     void eventIsOccured(Event ev);
     
-    void eventsChanged();
+    //void eventsChanged();
 
 }

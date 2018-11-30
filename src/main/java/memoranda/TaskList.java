@@ -19,7 +19,10 @@ public interface TaskList {
 	Project getProject();
     Task getTask(String id);
 
-    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, String description, String parentTaskId);
+    //TASK 2-2 SMELL BETWEEN CLASSES
+    //this is a code smell because the method has many parameters
+    //removed description and effort from the method
+    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, String parentTaskId);
 
     void removeTask(Task task);
 
