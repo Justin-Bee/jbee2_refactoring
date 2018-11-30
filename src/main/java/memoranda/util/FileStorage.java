@@ -19,16 +19,16 @@ import java.net.URL;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import interfaces.INoteListImpl;
+import interfaces.IResourcesListImpl;
+import interfaces.ITaskListImpl;
 import main.java.memoranda.EventsManager;
 import main.java.memoranda.Note;
 import main.java.memoranda.NoteList;
-import main.java.memoranda.NoteListImpl;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectManager;
 import main.java.memoranda.ResourcesList;
-import main.java.memoranda.ResourcesListImpl;
 import main.java.memoranda.TaskList;
-import main.java.memoranda.TaskListImpl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
@@ -285,12 +285,12 @@ public class FileStorage implements Storage {
                 // reload from new file
                 tasklistDoc = openDocument(fn);
             }*/
-            return new TaskListImpl(tasklistDoc, prj);   
+            return new ITaskListImpl(tasklistDoc, prj);   
         }
         else {
             /*DEBUG*/
             System.out.println("[DEBUG] New task list created");
-            return new TaskListImpl(prj);
+            return new ITaskListImpl(prj);
         }
     }
 
@@ -330,12 +330,12 @@ public class FileStorage implements Storage {
                     + prj.getID()
                     + File.separator
                     + ".notes");
-            return new NoteListImpl(openDocument(fn), prj);
+            return new INoteListImpl(openDocument(fn), prj);
         }
         else {
             /*DEBUG*/
             System.out.println("[DEBUG] New note list created");
-            return new NoteListImpl(prj);
+            return new INoteListImpl(prj);
         }
     }
     /**
@@ -416,12 +416,12 @@ public class FileStorage implements Storage {
         if (documentExists(fn)) {
             /*DEBUG*/
             System.out.println("[DEBUG] Open resources list: " + fn);
-            return new ResourcesListImpl(openDocument(fn), prj);
+            return new IResourcesListImpl(openDocument(fn), prj);
         }
         else {
             /*DEBUG*/
             System.out.println("[DEBUG] New note list created");
-            return new ResourcesListImpl(prj);
+            return new IResourcesListImpl(prj);
         }
     }
     /**

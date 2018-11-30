@@ -6,13 +6,16 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-package main.java.memoranda;
+package interfaces;
 
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
+import main.java.memoranda.Project;
+import main.java.memoranda.Task;
+import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.Util;
 import nu.xom.Attribute;
@@ -29,7 +32,7 @@ import nu.xom.Nodes;
  * 
  */
 /*$Id: TaskListImpl.java,v 1.14 2006/07/03 11:59:19 alexeya Exp $*/
-public class TaskListImpl implements TaskList {
+public class ITaskListImpl implements TaskList {
 
     private Project _project = null;
     private Document _doc = null;
@@ -44,14 +47,14 @@ public class TaskListImpl implements TaskList {
     /**
      * Constructor for TaskListImpl.
      */
-    public TaskListImpl(Document doc, Project prj) {
+    public ITaskListImpl(Document doc, Project prj) {
         _doc = doc;
         _root = _doc.getRootElement();
         _project = prj;
 		buildElements(_root);
     }
     
-    public TaskListImpl(Project prj) {            
+    public ITaskListImpl(Project prj) {            
             _root = new Element("tasklist");
             _doc = new Document(_root);
             _project = prj;
@@ -133,7 +136,7 @@ public class TaskListImpl implements TaskList {
 		
         Util.debug("Created task with parent " + parentTaskId);
         
-        return new TaskImpl(el, this);
+        return new ITaskImpl(el, this);
     }
 	
 	/**
@@ -165,7 +168,7 @@ public class TaskListImpl implements TaskList {
 
     public Task getTask(String id) {
         Util.debug("Getting task " + id);          
-        return new TaskImpl(getTaskElement(id), this);          
+        return new ITaskImpl(getTaskElement(id), this);          
     }
     
     public boolean hasParentTask(String id) {
@@ -339,7 +342,7 @@ public class TaskListImpl implements TaskList {
         Vector v = new Vector();
 
         for (int i = 0; i < tasks.size(); i++) {
-            Task t = new TaskImpl(tasks.get(i), this);
+            Task t = new ITaskImpl(tasks.get(i), this);
             v.add(t);
         }
         return v;

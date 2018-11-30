@@ -10,6 +10,7 @@ package main.java.memoranda;
 
 import java.util.Vector;
 
+import interfaces.IProjectImpl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
@@ -51,7 +52,7 @@ public class ProjectManager {
         for (int i = 0; i < prjs.size(); i++) {
             String pid = ((Element) prjs.get(i)).getAttribute("id").getValue();
             if (pid.equals(id)) {
-                return new ProjectImpl((Element) prjs.get(i));
+                return new IProjectImpl((Element) prjs.get(i));
             }
         }
         return null;
@@ -61,7 +62,7 @@ public class ProjectManager {
         Elements prjs = _root.getChildElements("project");
         Vector v = new Vector();
         for (int i = 0; i < prjs.size(); i++)
-            v.add(new ProjectImpl((Element) prjs.get(i)));
+            v.add(new IProjectImpl((Element) prjs.get(i)));
         return v;
     }
 
@@ -80,7 +81,7 @@ public class ProjectManager {
         Elements prjs = _root.getChildElements("project");
         Vector v = new Vector();
         for (int i = 0; i < prjs.size(); i++) {
-            Project prj = new ProjectImpl((Element) prjs.get(i));
+            Project prj = new IProjectImpl((Element) prjs.get(i));
             if (prj.getStatus() == Project.ACTIVE)
                 v.add(prj);
         }
@@ -91,7 +92,7 @@ public class ProjectManager {
         Elements prjs = _root.getChildElements("project");
         int count = 0;
         for (int i = 0; i < prjs.size(); i++) {
-            Project prj = new ProjectImpl((Element) prjs.get(i));
+            Project prj = new IProjectImpl((Element) prjs.get(i));
             if (prj.getStatus() == Project.ACTIVE)
                 count++;
         }
@@ -102,7 +103,7 @@ public class ProjectManager {
         Element el = new Element("project");
         el.addAttribute(new Attribute("id", id));
         _root.appendChild(el);
-        Project prj = new ProjectImpl(el);
+        Project prj = new IProjectImpl(el);
         prj.setTitle(title);
         prj.setStartDate(startDate);
         prj.setEndDate(endDate);

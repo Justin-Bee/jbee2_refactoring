@@ -6,11 +6,14 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-package main.java.memoranda;
+package interfaces;
 
 import java.util.Collection;
 import java.util.Vector;
 
+import main.java.memoranda.Project;
+import main.java.memoranda.Task;
+import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 
@@ -25,7 +28,7 @@ import nu.xom.Node;
  *
  */
 /*$Id: TaskImpl.java,v 1.15 2005/12/01 08:12:26 alexeya Exp $*/
-public class TaskImpl implements Task, Comparable {
+public class ITaskImpl implements Task, Comparable {
 
     private Element _element = null;
     private TaskList _tl = null;
@@ -33,7 +36,7 @@ public class TaskImpl implements Task, Comparable {
     /**
      * Constructor for DefaultTask.
      */
-    public TaskImpl(Element taskElement, TaskList tl) {
+    public ITaskImpl(Element taskElement, TaskList tl) {
         _element = taskElement;
         _tl = tl;
     }
@@ -97,7 +100,7 @@ public class TaskImpl implements Task, Comparable {
     	if (parentNode instanceof Element) {
     	    Element parent = (Element) parentNode;
         	if (parent.getLocalName().equalsIgnoreCase("task")) 
-        	    return new TaskImpl(parent, _tl);
+        	    return new ITaskImpl(parent, _tl);
     	}
     	return null;
 	}
@@ -361,7 +364,7 @@ public class TaskImpl implements Task, Comparable {
 	private Collection convertToTaskObjects(Elements tasks) {
         Vector v = new Vector();
         for (int i = 0; i < tasks.size(); i++) {
-            Task t = new TaskImpl(tasks.get(i), _tl);
+            Task t = new ITaskImpl(tasks.get(i), _tl);
             v.add(t);
         }
         return v;
@@ -374,7 +377,7 @@ public class TaskImpl implements Task, Comparable {
 		Elements subTasks = _element.getChildElements("task");
 		for (int i = 0; i < subTasks.size(); i++) {
 			if (subTasks.get(i).getAttribute("id").getValue().equals(id))
-				return new TaskImpl(subTasks.get(i), _tl);
+				return new ITaskImpl(subTasks.get(i), _tl);
 		}
 		return null;
 	}

@@ -6,8 +6,9 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-package main.java.memoranda;
+package interfaces;
 
+import main.java.memoranda.Project;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import nu.xom.Attribute;
@@ -17,14 +18,14 @@ import nu.xom.Element;
  * Default implementation of Project interface
  */
 /*$Id: ProjectImpl.java,v 1.7 2004/11/22 10:02:37 alexeya Exp $*/
-public class ProjectImpl implements Project {
+public class IProjectImpl implements Project {
 
     private Element _root = null;
 
     /**
      * Constructor for ProjectImpl.
      */
-    public ProjectImpl(Element root) {        
+    public IProjectImpl(Element root) {        
         _root = root;
     }
 

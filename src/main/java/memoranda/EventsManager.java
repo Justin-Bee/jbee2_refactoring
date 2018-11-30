@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
+import interfaces.IEventImpl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Util;
@@ -102,7 +103,7 @@ public class EventsManager {
 		if (d != null) {
 			Elements els = d.getElement().getChildElements("event");
 			for (int i = 0; i < els.size(); i++)
-				v.add(new EventImpl(els.get(i)));
+				v.add(new IEventImpl(els.get(i)));
 		}
 		Collection r = getRepeatableEventsForDate(date);
 		if (r.size() > 0)
@@ -126,7 +127,7 @@ public class EventsManager {
 		if (d == null)
 			d = createDay(date);
 		d.getElement().appendChild(el);
-		return new EventImpl(el);
+		return new IEventImpl(el);
 	}
 
 	public static Event createRepeatableEvent(
@@ -156,7 +157,7 @@ public class EventsManager {
 		el.addAttribute(new Attribute("workingDays",String.valueOf(workDays)));
 		el.appendChild(text);
 		rep.appendChild(el);
-		return new EventImpl(el);
+		return new IEventImpl(el);
 	}
 
 	public static Collection getRepeatableEvents() {
@@ -166,7 +167,7 @@ public class EventsManager {
 			return v;
 		Elements els = rep.getChildElements("event");
 		for (int i = 0; i < els.size(); i++)
-			v.add(new EventImpl(els.get(i)));
+			v.add(new IEventImpl(els.get(i)));
 		return v;
 	}
 
@@ -226,8 +227,8 @@ public class EventsManager {
 
 	public static Event getEvent(CalendarDate date, int hh, int mm) {
 		Day d = getDay(date);
-		if (d == null)
-			return null;
+		//if (d == null)
+		//	return null;
 		Elements els = d.getElement().getChildElements("event");
 		for (int i = 0; i < els.size(); i++) {
 			Element el = els.get(i);
@@ -235,7 +236,7 @@ public class EventsManager {
 				== hh)
 				&& (new Integer(el.getAttribute("min").getValue()).intValue()
 					== mm))
-				return new EventImpl(el);
+				return new IEventImpl(el);
 		}
 		return null;
 	}

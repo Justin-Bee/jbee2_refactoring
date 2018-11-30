@@ -6,10 +6,13 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-package main.java.memoranda;
+package interfaces;
 import java.util.Collection;
 import java.util.Vector;
 
+import main.java.memoranda.Note;
+import main.java.memoranda.NoteList;
+import main.java.memoranda.Project;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.util.Util;
@@ -21,7 +24,7 @@ import nu.xom.Elements;
  * 
  */
 /*$Id: NoteListImpl.java,v 1.14 2004/10/28 11:30:15 alexeya Exp $*/
-public class NoteListImpl implements NoteList {
+public class INoteListImpl implements NoteList {
 
     private Project _project = null;
     private Document _doc = null;
@@ -32,13 +35,13 @@ public class NoteListImpl implements NoteList {
     /**
      * Constructor for NoteListImpl.
      */
-    public NoteListImpl(Document doc, Project prj) {
+    public INoteListImpl(Document doc, Project prj) {
         _doc = doc;
         _root = _doc.getRootElement();
         _project = prj;
     }
 
-    public NoteListImpl(Project prj) {
+    public INoteListImpl(Project prj) {
     	
         //_root = new Element("noteslist", NS_JNNL);
         _root = new Element("noteslist");
@@ -60,7 +63,7 @@ public class NoteListImpl implements NoteList {
 					Vector ns = d.getNotes();
 					for(int ni = 0; ni < ns.size(); ni++) {
 						NoteElement n = (NoteElement) ns.get(ni);
-						v.add(new NoteImpl(n.getElement(), _project));
+						v.add(new INoteImpl(n.getElement(), _project));
 					}
                 }
             }
@@ -85,7 +88,7 @@ public class NoteListImpl implements NoteList {
 					Vector ns = d.getNotes();
 					for(int ni = 0; ni < ns.size(); ni++) {
 						NoteElement ne = (NoteElement) ns.get(ni);
-						Note n = new NoteImpl(ne.getElement(), _project);
+						Note n = new INoteImpl(ne.getElement(), _project);
 						if (n.isMarked()) v.add(n);
                 }
             }
@@ -113,7 +116,7 @@ public class NoteListImpl implements NoteList {
 								Vector ns = d.getNotes();
 								for(int ni = 0; ni < ns.size(); ni++) {
 									NoteElement n = (NoteElement) ns.get(ni);
-									v.add(new NoteImpl(n.getElement(), _project));
+									v.add(new INoteImpl(n.getElement(), _project));
 								}
 							}
                         }
@@ -137,7 +140,7 @@ public class NoteListImpl implements NoteList {
 		Vector ns = d.getNotes();
 		if(ns.size()>0) {
 			NoteElement n = (NoteElement) ns.get(0);
-			Note currentNote = new NoteImpl(n.getElement(), _project);
+			Note currentNote = new INoteImpl(n.getElement(), _project);
 			return currentNote; 
 		}
 		return null;
@@ -155,7 +158,7 @@ public class NoteListImpl implements NoteList {
         if (d == null) 
             d = m.createDay(date.getDay());
 		NoteElement ne = d.createNote(Util.generateId());
-        return new NoteImpl(ne.getElement(), _project);
+        return new INoteImpl(ne.getElement(), _project);
     }
     
      /*

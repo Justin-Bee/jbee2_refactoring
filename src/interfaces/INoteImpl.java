@@ -6,8 +6,10 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-package main.java.memoranda;
+package interfaces;
 
+import main.java.memoranda.Note;
+import main.java.memoranda.Project;
 import main.java.memoranda.date.CalendarDate;
 import nu.xom.Attribute;
 import nu.xom.Element;
@@ -16,7 +18,7 @@ import nu.xom.Element;
  * 
  */
 /*$Id: NoteImpl.java,v 1.6 2004/10/06 19:15:44 ivanrise Exp $*/
-public class NoteImpl implements Note, Comparable {
+public class INoteImpl implements Note, Comparable {
     
     private Element _el = null; 
     private Project _project;
@@ -24,7 +26,7 @@ public class NoteImpl implements Note, Comparable {
     /**
      * Constructor for NoteImpl.
      */
-    public NoteImpl(Element el, Project project) {
+    public INoteImpl(Element el, Project project) {
         _el = el;
         _project = project;
     }

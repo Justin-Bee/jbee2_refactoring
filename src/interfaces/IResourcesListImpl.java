@@ -6,10 +6,13 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-package main.java.memoranda;
+package interfaces;
 
 import java.util.Vector;
 
+import main.java.memoranda.Project;
+import main.java.memoranda.Resource;
+import main.java.memoranda.ResourcesList;
 import main.java.memoranda.util.Util;
 
 import java.io.File;
@@ -23,7 +26,7 @@ import nu.xom.Elements;
  *
  */
 /*$Id: ResourcesListImpl.java,v 1.5 2007/03/20 06:21:46 alexeya Exp $*/
-public class ResourcesListImpl implements ResourcesList {
+public class IResourcesListImpl implements ResourcesList {
     
 	private Project _project = null;
     private Document _doc = null;
@@ -32,13 +35,13 @@ public class ResourcesListImpl implements ResourcesList {
     /**
      * Constructor for TaskListImpl.
      */
-    public ResourcesListImpl(Document doc, Project prj) {
+    public IResourcesListImpl(Document doc, Project prj) {
         _doc = doc;
         _root = _doc.getRootElement();
         _project = prj;
     }
 
-    public ResourcesListImpl(Project prj) {
+    public IResourcesListImpl(Project prj) {
             _root = new Element("resources-list");
             _doc = new Document(_root);
             _project = prj;
