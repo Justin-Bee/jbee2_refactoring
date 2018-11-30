@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
-import interfaces.IEventImpl;
+import interfaces.IEvent;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Util;
@@ -103,7 +103,7 @@ public class EventsManager {
 		if (d != null) {
 			Elements els = d.getElement().getChildElements("event");
 			for (int i = 0; i < els.size(); i++)
-				v.add(new IEventImpl(els.get(i)));
+				v.add(new EventImpl(els.get(i)));
 		}
 		Collection r = getRepeatableEventsForDate(date);
 		if (r.size() > 0)
@@ -113,7 +113,7 @@ public class EventsManager {
 		return v;
 	}
 
-	public static Event createEvent(
+	public static IEvent createEvent(
 		CalendarDate date,
 		int hh,
 		int mm,
@@ -127,10 +127,10 @@ public class EventsManager {
 		if (d == null)
 			d = createDay(date);
 		d.getElement().appendChild(el);
-		return new IEventImpl(el);
+		return new EventImpl(el);
 	}
 
-	public static Event createRepeatableEvent(
+	public static IEvent createRepeatableEvent(
 		int type,
 		CalendarDate startDate,
 		CalendarDate endDate,
@@ -157,7 +157,7 @@ public class EventsManager {
 		el.addAttribute(new Attribute("workingDays",String.valueOf(workDays)));
 		el.appendChild(text);
 		rep.appendChild(el);
-		return new IEventImpl(el);
+		return new EventImpl(el);
 	}
 
 	public static Collection getRepeatableEvents() {
@@ -167,7 +167,7 @@ public class EventsManager {
 			return v;
 		Elements els = rep.getChildElements("event");
 		for (int i = 0; i < els.size(); i++)
-			v.add(new IEventImpl(els.get(i)));
+			v.add(new EventImpl(els.get(i)));
 		return v;
 	}
 
@@ -175,7 +175,7 @@ public class EventsManager {
 		Vector reps = (Vector) getRepeatableEvents();
 		Vector v = new Vector();
 		for (int i = 0; i < reps.size(); i++) {
-			Event ev = (Event) reps.get(i);
+			IEvent ev = (IEvent) reps.get(i);
 			
 			// --- ivanrise
 			// ignore this event if it's a 'only working days' event and today is weekend.
@@ -225,7 +225,7 @@ public class EventsManager {
 		return getEventsForDate(CalendarDate.today());
 	}
 
-	public static Event getEvent(CalendarDate date, int hh, int mm) {
+	public static IEvent getEvent(CalendarDate date, int hh, int mm) {
 		Day d = getDay(date);
 		//if (d == null)
 		//	return null;
@@ -236,7 +236,7 @@ public class EventsManager {
 				== hh)
 				&& (new Integer(el.getAttribute("min").getValue()).intValue()
 					== mm))
-				return new IEventImpl(el);
+				return new EventImpl(el);
 		}
 		return null;
 	}
@@ -247,7 +247,7 @@ public class EventsManager {
 			d.getElement().removeChild(getEvent(date, hh, mm).getContent());
 	}
 
-	public static void removeEvent(Event ev) {
+	public static void removeEvent(IEvent ev) {
 		ParentNode parent = ev.getContent().getParent();
 		parent.removeChild(ev.getContent());
 	}

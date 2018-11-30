@@ -6,13 +6,13 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-package interfaces;
+package main.java.memoranda;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import main.java.memoranda.Event;
+import interfaces.IEvent;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.Local;
 import nu.xom.Attribute;
@@ -22,27 +22,27 @@ import nu.xom.Element;
  * 
  */
 /*$Id: EventImpl.java,v 1.9 2004/10/06 16:00:11 ivanrise Exp $*/
-public class IEventImpl implements Event, Comparable {
+public class EventImpl implements IEvent, Comparable {
     
     private Element _element = null;
 
     /**
      * Constructor for EventImpl.
      */
-    public IEventImpl(Element elem) {
+    public EventImpl(Element elem) {
         _element = elem;
     }
 
    
     /**
-     * @see main.java.memoranda.Event#getHour()
+     * @see interfaces.IEvent#getHour()
      */
     public int getHour() {
         return new Integer(_element.getAttribute("hour").getValue()).intValue();
     }
 
     /**
-     * @see main.java.memoranda.Event#getMinute()
+     * @see interfaces.IEvent#getMinute()
      */
     public int getMinute() {
         return new Integer(_element.getAttribute("min").getValue()).intValue();
@@ -54,26 +54,26 @@ public class IEventImpl implements Event, Comparable {
         
   
     /**
-     * @see main.java.memoranda.Event#getText()
+     * @see interfaces.IEvent#getText()
      */
     public String getText() {
         return _element.getValue();
     }
 
     /**
-     * @see main.java.memoranda.Event#getContent()
+     * @see interfaces.IEvent#getContent()
      */
     public Element getContent() {
         return _element;
     }
     /**
-     * @see main.java.memoranda.Event#isRepeatable()
+     * @see interfaces.IEvent#isRepeatable()
      */
     public boolean isRepeatable() {
         return getStartDate() != null;
     }
     /**
-     * @see main.java.memoranda.Event#getStartDate()
+     * @see interfaces.IEvent#getStartDate()
      */
     public CalendarDate getStartDate() {
         Attribute a = _element.getAttribute("startDate");
@@ -81,7 +81,7 @@ public class IEventImpl implements Event, Comparable {
         return null;
     }
     /**
-     * @see main.java.memoranda.Event#getEndDate()
+     * @see interfaces.IEvent#getEndDate()
      */
     public CalendarDate getEndDate() {
         Attribute a = _element.getAttribute("endDate");
@@ -89,7 +89,7 @@ public class IEventImpl implements Event, Comparable {
         return null;
     }
     /**
-     * @see main.java.memoranda.Event#getPeriod()
+     * @see interfaces.IEvent#getPeriod()
      */
     public int getPeriod() {
         Attribute a = _element.getAttribute("period");
@@ -97,7 +97,7 @@ public class IEventImpl implements Event, Comparable {
         return 0;
     }
     /**
-     * @see main.java.memoranda.Event#getId()
+     * @see interfaces.IEvent#getId()
      */
     public String getId() {
         Attribute a = _element.getAttribute("id");
@@ -105,7 +105,7 @@ public class IEventImpl implements Event, Comparable {
         return null;
     }
     /**
-     * @see main.java.memoranda.Event#getRepeat()
+     * @see interfaces.IEvent#getRepeat()
      */
     public int getRepeat() {
         Attribute a = _element.getAttribute("repeat-type");
@@ -113,7 +113,7 @@ public class IEventImpl implements Event, Comparable {
         return 0;
     }
     /**
-     * @see main.java.memoranda.Event#getTime()
+     * @see interfaces.IEvent#getTime()
      */
     public Date getTime() {
     	//Deprecated methods
@@ -134,7 +134,7 @@ public class IEventImpl implements Event, Comparable {
     }
 	
 	/**
-     * @see main.java.memoranda.Event#getWorkinDays()
+     * @see interfaces.IEvent#getWorkinDays()
      */
 	public boolean getWorkingDays() {
         Attribute a = _element.getAttribute("workingDays");
@@ -143,7 +143,7 @@ public class IEventImpl implements Event, Comparable {
 	}
 	
 	public int compareTo(Object o) {
-		Event event = (Event) o;
+		IEvent event = (IEvent) o;
 		return (getHour() * 60 + getMinute()) - (event.getHour() * 60 + event.getMinute());
 	}
 
